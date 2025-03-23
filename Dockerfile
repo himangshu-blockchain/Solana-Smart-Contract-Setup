@@ -40,12 +40,17 @@ RUN rustup install nightly && \
 # Generate Solana Keygen
 RUN solana-keygen new --no-bip39-passphrase
 
+## Increase memory stack
+ENV RUST_MIN_STACK=67108864
+
+
+# Build a sample workspace for download packages.
+COPY ./Project /app 
+RUN cd /app/project && anchor build
 
 # Copy your script (e.g., entrypoint.sh) into the container
 COPY entrypoint.sh /entrypoint.sh  
-
 # Make the script executable
 RUN chmod +x /entrypoint.sh  
-
 # Set the new entrypoint
 ENTRYPOINT ["/entrypoint.sh"]

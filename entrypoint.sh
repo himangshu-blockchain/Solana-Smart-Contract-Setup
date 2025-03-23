@@ -1,6 +1,9 @@
 #!/bin/sh
 
 set -e  # Exit script on error
+COMMAND=$1
+WORKSPACE=$2
+PROGRAM=$3
 
 handle_error() {
   case "$1" in
@@ -17,14 +20,9 @@ handle_error() {
   exit 1
 }
 
-
-COMMAND=$1
-WORKSPACE=$2
-PROGRAM=$3
-
 if [ -z "$COMMAND" ]; then
-    echo "Error: No command provided."
-    echo "Available commands: new-workspace, new-program, build-workspace, build-program, test-workspace, test-program"
+    echo "\t\e[31m❌\e[1m Error:\e[0m No command provided."
+    echo "\t\e[32mAvailable commands:\e[0m new-workspace, new-program, build-workspace, build-program, test-workspace, test-program"
     exit 1
 fi
 
@@ -106,61 +104,3 @@ case "$COMMAND" in
         exit 1
         ;;
 esac
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# #!/bin/sh
-
-# COMMAND=$1
-# SUBCOMMAND=$2
-
-# if [ -z "$COMMAND" ]; then
-#     echo "Error: No command provided. Available commands: new, new-program, test"
-#     exit 1
-# fi
-
-# case "$COMMAND" in
-#     new)
-#         echo "Creating new Anchor workspace..."
-#         anchor init $SUBCOMMAND --no-git ;;
-#     newprogram)
-#         echo "Creating a new program..."
-#         cd projectdir && anchor new $SUBCOMMAND ;;
-#     test)
-#         echo "Running tests..."
-#         cd projectdir && anchor test ;;
-#     *)
-#         echo "Error: Invalid command '$COMMAND'. Available commands: new, new-program, test"
-#         exit 1 ;;
-# esac
