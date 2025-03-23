@@ -1,0 +1,19 @@
+services:
+  solana-anchor:
+    build: .
+    container_name: solana-anchor
+    volumes:
+      - ./Project:/app
+    ports:
+      - "8899:8899"  # Solana RPC
+      - "8900:8900"  # Solana Gossip
+    tty: true
+
+    # To Create a new Workspace, uncomment the following line
+    # command: sh -c "anchor init project --no-git 2>/dev/null"  
+
+    command: >
+      sh -c "cd project && 
+      cargo update bytemuck_derive@1.9.2 --precise 1.8.1 && 
+      anchor build && 
+      anchor test"

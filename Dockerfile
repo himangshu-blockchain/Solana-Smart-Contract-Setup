@@ -16,12 +16,11 @@ RUN apt update && apt upgrade -y && \
     build-essential \
     pkg-config \
     libudev-dev \
-    llvm curl \
+    clang llvm lld curl \
     libclang-dev \
     protobuf-compiler \
     libssl-dev && \
     apt clean && rm -rf /var/lib/apt/lists/*
-
 
 
 # Quick Installation 
@@ -36,9 +35,17 @@ RUN rustc --version && \
     anchor --version && \
     solana --version
 
+RUN rustup install nightly && \
+    rustup default nightly
 # Generate Solana Keygen
 RUN solana-keygen new --no-bip39-passphrase
 
-# After create Project change the following.
-# cargo update bytemuck_derive@1.9.2 --precise 1.8.1
 
+# Copy your script (e.g., entrypoint.sh) into the container
+COPY entrypoint.sh /entrypoint.sh  
+
+# Make the script executable
+RUN chmod +x /entrypoint.sh  
+
+# Set the new entrypoint
+ENTRYPOINT ["/entrypoint.sh"]

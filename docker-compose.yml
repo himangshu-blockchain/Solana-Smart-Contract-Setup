@@ -1,0 +1,23 @@
+services:
+  solana-anchor:
+    build: .
+    container_name: solana-anchor
+    ports:
+      - "8899:8899"  # Solana RPC
+      - "8900:8900"  # Solana Gossip
+    tty: true
+    working_dir: /app
+    deploy:
+      resources:
+        limits:
+          memory: 12g  # Allocate 12GB RAM
+        reservations:
+          memory: 4g  # Reserve 4GB RAM
+    # develop:
+    #   watch: # Track live changes during development
+    #     - action: sync
+    #       path: ./APP
+    #       target: /app
+    volumes:
+      - ./Project:/app  # Mount current directory into container
+    # entrypoint: ["/app/entrypoint.sh"]
