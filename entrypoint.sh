@@ -29,8 +29,8 @@ fi
 case "$COMMAND" in
     new-workspace)
         if [ -z "$WORKSPACE" ]; then
-            echo "Error: No workspace name provided."
-            echo "Usage: docker compose run --rm solana-anchor new-workspace <workspace-name>"
+            echo "\t\e[31m❌\e[1m Error:\e[0m No workspace name provided."
+            echo "\t\e[32mUsage:\e[0m docker compose run --rm solana-anchor new-workspace <workspace-name>"
             exit 1
         fi
         echo "Creating new Anchor workspace: [[ \e[33m\e[1m$WORKSPACE\e[0m ]]"
